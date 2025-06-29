@@ -10,6 +10,7 @@ Future<PostModel> uploadPost(PostModel post) async {
     authorId: post.authorId,
     authorName: post.authorName,
     text: post.text,
+    imageUrl: post.imageUrl, 
     likes: post.likes,
     comments: post.comments,
     commentsCount: post.commentsCount,
@@ -20,6 +21,7 @@ Future<PostModel> uploadPost(PostModel post) async {
 
   return newPost;
 }
+
 
 //===================== Get Posts by User ID ==========================
 Future<List<PostModel>> getPostsByUserId(String userId) async {

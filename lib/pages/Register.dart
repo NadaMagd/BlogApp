@@ -242,7 +242,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             }
                           },
                         ),
-                      )
+                      ),
+                      TextButton(onPressed: (){
+                        Navigator.pushReplacement(context , MaterialPageRoute(builder: (context) =>LoginScreen()));
+                      }, child: Text("Aleady have an account? Login",style: TextStyle(fontSize: 16, color: Colors.blue),))
                     ],
                   ),
                 ),

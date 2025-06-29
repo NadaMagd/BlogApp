@@ -193,38 +193,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (posts.isEmpty) {
                         return const Text("No posts yet.");
                       }
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: posts.length,
-                        itemBuilder: (context, index) {
-                          final post = posts[index];
-                          return Card(
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(post.text),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.favorite, size: 16),
-                                      const SizedBox(width: 4),
-                                      Text("${post.likes.length} likes"),
-                                      const SizedBox(width: 16),
-                                      const Icon(Icons.comment, size: 16),
-                                      const SizedBox(width: 4),
-                                      Text("${post.commentsCount} comments"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                     return ListView.builder(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  itemCount: posts.length,
+  itemBuilder: (context, index) {
+    final post = posts[index];
+    final imageUrl = (post.imageUrl.isNotEmpty)
+        ? post.imageUrl
+        : 'https://ik.imagekit.io/demo/img/default-image.jpg';
+
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(post.text),
+            const SizedBox(height: 8),
+            if (post.imageUrl.isNotEmpty)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  imageUrl,
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Text("⚠️ Failed to load image"),
+                ),
+              ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const Icon(Icons.favorite, size: 16),
+                const SizedBox(width: 4),
+                Text("${post.likes.length} likes"),
+                const SizedBox(width: 16),
+                const Icon(Icons.comment, size: 16),
+                const SizedBox(width: 4),
+                Text("${post.commentsCount} comments"),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+);
+
                     },
                   )
                 ],

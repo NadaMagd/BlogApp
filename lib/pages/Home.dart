@@ -162,7 +162,8 @@ class _HomeScreenState extends State<HomeScreen>
         controller: _tabController,
         children: [
           Posts(),
-          AddPost(),
+          Text("data"),
+                    AddPost(),
         ],
       ),
     );

@@ -1,19 +1,21 @@
 class PostModel {
-  final String? id; 
+  final String? id;
   final String authorId;
   final String authorName;
   final String text;
 
+  final String imageUrl; 
   final List<String> likes;
   final List<String> comments;
   final int commentsCount;
   final DateTime timestamp;
 
   PostModel({
-    this.id, // <-- مش مطلوب
+    this.id,
     required this.authorId,
     required this.authorName,
     required this.text,
+    required this.imageUrl, 
 
     required this.likes,
     required this.comments,
@@ -26,6 +28,7 @@ class PostModel {
       'authorId': authorId,
       'authorName': authorName,
       'text': text,
+      'imageUrl': imageUrl, 
 
       'likes': likes,
       'comments': comments,
@@ -40,6 +43,7 @@ class PostModel {
       authorId: map['authorId'],
       authorName: map['authorName'],
       text: map['text'],
+      imageUrl: map['imageUrl'], 
 
       likes: List<String>.from(map['likes']),
       comments: List<String>.from(map['comments']),

@@ -111,12 +111,15 @@ class _PostsState extends State<Posts> {
               final text = data['text'] ?? '';
               final likes = (data['likes'] as List?) ?? [];
               final comments = (data['comments'] as List?) ?? [];
-
               final isLiked = likes.contains(currentUserId);
 
+              // 👇 استخراج صورة البوست
+              final imageUrl = (data['imageUrl'] ?? '').isNotEmpty
+                  ? data['imageUrl']
+                  : 'https://ik.imagekit.io/demo/img/default-image.jpg';
+
               return Card(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 elevation: 3,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -138,11 +141,13 @@ class _PostsState extends State<Posts> {
                       const SizedBox(height: 8),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          'assets/images/bg3-removebg-preview.png',
+                        child: Image.network(
+                          imageUrl,
                           height: 200,
                           width: double.infinity,
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Text("⚠️ Failed to load image"),
                         ),
                       ),
                       const SizedBox(height: 8),

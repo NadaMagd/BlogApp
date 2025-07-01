@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
   late TabController _tabController;
 
   @override

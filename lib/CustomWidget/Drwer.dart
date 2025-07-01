@@ -1,3 +1,4 @@
+import 'package:blogapp/pages/Login.dart';
 import 'package:blogapp/pages/Profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -80,13 +81,18 @@ class AppDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.logout, color: Colors.redAccent),
-            title: const Text("Logout"),
-            onTap: () async {
-              await FirebaseAuth.instance.signOut();
-              Navigator.popUntil(context, (route) => route.isFirst);
-            },
-          ),
+  leading: const Icon(Icons.logout, color: Colors.redAccent),
+  title: const Text("Logout"),
+  onTap: () async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (Route<dynamic> route) => false,
+    );
+  },
+),
+
         ],
       ),
     );

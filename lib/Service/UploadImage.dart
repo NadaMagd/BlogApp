@@ -28,8 +28,8 @@ class ImageUploadService {
       final jsonResponse = json.decode(response.body);
       return jsonResponse['url'];
     } else {
-      print('❌ Upload failed: ${response.statusCode}');
-      print('❌ Body: ${response.body}');
+      print(' Upload failed: ${response.statusCode}');
+      print(' Body: ${response.body}');
       return null;
     }
   }

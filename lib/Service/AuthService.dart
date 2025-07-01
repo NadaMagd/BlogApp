@@ -18,7 +18,7 @@ Future<void> Register({
         .doc(uid)
         .set(user.toMap());
 
-    print("User registered and saved to Firestore ✅");
+    print("User registered and saved to Firestore ");
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');

@@ -236,7 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         errorBuilder:
                                             (context, error, stackTrace) =>
                                                 const Text(
-                                                    "⚠️ Failed to load image"),
+                                                    " Failed to load image"),
                                       ),
                                     ),
                                   const SizedBox(height: 8),

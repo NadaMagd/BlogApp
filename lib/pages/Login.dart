@@ -1,7 +1,7 @@
 import 'package:blogapp/CustomWidget/TextField.dart';
 import 'package:blogapp/Service/AuthService.dart';
 import 'package:blogapp/pages/Home.dart';
-import 'package:blogapp/pages/Profile.dart';
+
 import 'package:blogapp/pages/Register.dart';
 import 'package:flutter/material.dart';
 
@@ -35,10 +35,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Welcome Again Outak",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  "Welcome Again Outak!",
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 77, 51, 81),
+                      fontFamily: AutofillHints.birthdayYear,
+                      decorationStyle: TextDecorationStyle.wavy),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 70),
                 Form(
                   key: formState,
                   child: Column(
@@ -75,11 +80,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
+                      const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
+                            backgroundColor: Color.fromARGB(255, 80, 40, 84),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -100,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   TextStyle(fontSize: 16, color: Colors.white)),
                         ),
                       ),
+                      SizedBox(height: 20),
                       TextButton(
                           onPressed: () {
                             Navigator.pushReplacement(
@@ -107,7 +114,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => RegisterPage()));
                           },
-                          child: Text("Reister"))
+                          child: Text("Don't have an account? Sign up",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 123, 124, 125)))),
                     ],
                   ),
                 ),

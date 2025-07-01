@@ -3,10 +3,9 @@ class PostModel {
   final String authorId;
   final String authorName;
   final String text;
-
-  final String imageUrl; 
+  final String imageUrl;
   final List<String> likes;
-  final List<String> comments;
+  final List<Map<String, dynamic>> comments; 
   final int commentsCount;
   final DateTime timestamp;
 
@@ -15,8 +14,7 @@ class PostModel {
     required this.authorId,
     required this.authorName,
     required this.text,
-    required this.imageUrl, 
-
+    required this.imageUrl,
     required this.likes,
     required this.comments,
     required this.commentsCount,
@@ -28,8 +26,7 @@ class PostModel {
       'authorId': authorId,
       'authorName': authorName,
       'text': text,
-      'imageUrl': imageUrl, 
-
+      'imageUrl': imageUrl,
       'likes': likes,
       'comments': comments,
       'commentsCount': commentsCount,
@@ -43,11 +40,10 @@ class PostModel {
       authorId: map['authorId'],
       authorName: map['authorName'],
       text: map['text'],
-      imageUrl: map['imageUrl'], 
-
+      imageUrl: map['imageUrl'] ?? '',
       likes: List<String>.from(map['likes']),
-      comments: List<String>.from(map['comments']),
-      commentsCount: map['commentsCount'],
+      comments: List<Map<String, dynamic>>.from(map['comments'] ?? []),
+      commentsCount: map['commentsCount'] ?? 0,
       timestamp: DateTime.parse(map['timestamp']),
     );
   }

@@ -77,3 +77,33 @@ Future<void> toggleLike(String postId, String userId) async {
 
   await docRef.update({'likes': likes});
 }
+//=============================comment====================================
+Future<void> addCommentToPost({
+  required String postId,
+  required String userId,
+  required String username,
+  required String commentText,
+}) async {
+  final commentData = {
+    'userId': userId,
+    'username': username,
+    'text': commentText,
+    'timestamp': DateTime.now().toIso8601String(),
+  };
+
+  await FirebaseFirestore.instance.collection('posts').doc(postId).update({
+    'comments': FieldValue.arrayUnion([commentData]),
+    'commentsCount': FieldValue.increment(1),
+  });
+}
+//=============================getComments====================================
+Future<List<Map<String, dynamic>>> getComments(String postId) async {
+  final doc = await FirebaseFirestore.instance.collection('posts').doc(postId).get();
+  final data = doc.data();
+  
+  if (data != null && data.containsKey('comments')) {
+    return List<Map<String, dynamic>>.from(data['comments']);
+  } else {
+    return [];
+  }
+}

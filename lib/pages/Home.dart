@@ -1,6 +1,10 @@
+import 'package:blogapp/CustomWidget/Drwer.dart';
+import 'package:blogapp/Service/Search.dart';
 import 'package:blogapp/pages/AddPost.dart';
+import 'package:blogapp/pages/MyPosts.dart';
 import 'package:blogapp/pages/Posts.dart';
 import 'package:blogapp/pages/Profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
+  final currentUserId = FirebaseAuth.instance.currentUser!.uid;
   late TabController _tabController;
 
   @override
@@ -35,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen>
           style: TextStyle(
               color: Color.fromARGB(255, 255, 255, 255), fontSize: 25),
         ),
-        backgroundColor: Color.fromARGB(255, 128, 79, 134),
+        backgroundColor: Color.fromARGB(255, 80, 40, 84),
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.white,
@@ -67,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen>
                     height: 2,
                   ),
                   Text(
-                    "FavPosts",
+                    "My Posts",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -96,74 +101,26 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.white),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: PostSearchDelegate(
+                    currentUserId: FirebaseAuth.instance.currentUser!.uid),
+              );
+            },
+          ),
+        ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 163, 31, 154),
-                    Color.fromARGB(255, 72, 25, 76),
-                  ],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const CircleAvatar(
-                      radius: 35,
-                      backgroundImage: AssetImage(
-                        'assets/images/e7fc7b0a-1da9-43b7-910c-a33195b696a9.jpg',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "m",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-                leading: const Icon(Icons.person, color: Colors.blue),
-                title: const Text("Profile"),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
-                }),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.logout, color: Colors.redAccent),
-              title: const Text("Logout"),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: AppDrawer (),
       body: TabBarView(
         controller: _tabController,
         children: [
           Posts(),
-          Text("data"),
-                    AddPost(),
+          MyPostsPage(),
+          AddPost(),
         ],
       ),
     );

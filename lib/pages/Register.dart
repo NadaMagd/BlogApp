@@ -3,6 +3,7 @@ import 'package:blogapp/Service/AuthService.dart';
 import 'package:blogapp/pages/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:blogapp/CustomWidget/TextField.dart';
+import 'package:flutter/widgets.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -24,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Padding(
         padding: const EdgeInsets.only(top: 40.0),
         child: SafeArea(
@@ -39,8 +40,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Welcome to Shop",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  "Welcome Our World !",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Color.fromARGB(255, 77, 51, 81),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: AutofillHints.birthdayYear,
+                      decorationStyle: TextDecorationStyle.wavy),
                 ),
                 const SizedBox(height: 30),
                 Form(
@@ -69,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value == null || value.isEmpty)
                             return 'You must enter an email';
                           final emailRegex =
-                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\$');
+                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                           if (!emailRegex.hasMatch(value))
                             return 'Invalid email format';
                           return null;
@@ -84,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value == null || value.isEmpty)
                             return 'Please enter a password';
                           final passwordRegex = RegExp(
-                            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@\$!%*?&])[A-Za-z\d@\$!%*?&]{8,}\$',
+                            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@\$!%*?&])[A-Za-z\d@\$!%*?&]{8,}$',
                           );
                           if (!passwordRegex.hasMatch(value)) {
                             return 'Password must include upper/lowercase, number and symbol';
@@ -101,14 +107,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your phone number';
                           }
-                          final phoneRegex = RegExp(r'^01[0125][0-9]{8}\$');
-                          if (!phoneRegex.hasMatch(value)) {
+                          final phoneRegex = RegExp(r'^01[0125][0-9]{8}$');
+                          if (!phoneRegex.hasMatch(value.trim())) {
                             return 'Phone Wrong please Write Phone like this 0123456789';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(height: 20),
                       CustomTextField(
                         controller: job,
                         hintText: "YourJob",
@@ -116,7 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         icon: const Icon(Icons.work),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter yourJop';
+                            return 'Please enter your job';
                           }
                           if (value.length < 3) {
                             return 'Please Enter More than 3 Char';
@@ -124,7 +129,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 20),
                       CustomTextField(
                         controller: address,
                         hintText: "YourAddress",
@@ -144,7 +148,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Your Gender",
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 77, 51, 81),
+                              fontWeight: FontWeight.w600,
+                              fontFamily: AutofillHints.birthdayYear),
                         ),
                       ),
                       Column(
@@ -171,14 +179,12 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
+                            backgroundColor: Color.fromARGB(255, 80, 40, 84),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -187,21 +193,24 @@ class _RegisterPageState extends State<RegisterPage> {
                           onPressed: () {
                             if (formState.currentState!.validate()) {
                               Register(
+                                email: email.text,
+                                password: password.text,
+                                user: UserModel(
+                                  name: username.text,
                                   email: email.text,
                                   password: password.text,
-                                  user: UserModel(
-                                      name: username.text,
-                                      email: email.text,
-                                      password: password.text,
-                                      phone: phone.text,
-                                      gender: gender!,
-                                      job: job.text,
-                                      address: address.text));
+                                  phone: phone.text,
+                                  gender: gender!,
+                                  job: job.text,
+                                  address: address.text,
+                                ),
+                              );
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginScreen(),
-                                  ));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
                             }
                           },
                           child: const Text("SignuP",
@@ -219,7 +228,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           label: const Text("Sign up with Google"),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent,
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 255, 255),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -243,9 +253,20 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                         ),
                       ),
-                      TextButton(onPressed: (){
-                        Navigator.pushReplacement(context , MaterialPageRoute(builder: (context) =>LoginScreen()));
-                      }, child: Text("Aleady have an account? Login",style: TextStyle(fontSize: 16, color: Colors.blue),))
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        },
+                        child: Text(
+                          "Already have an account? Login",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 123, 124, 125)),
+                        ),
+                      )
                     ],
                   ),
                 ),

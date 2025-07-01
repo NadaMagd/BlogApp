@@ -63,7 +63,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Edit $field", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text("Edit $field",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             TextField(
               controller: controller,
               decoration: InputDecoration(hintText: 'Enter new $field'),
@@ -108,14 +110,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const Center(
                     child: CircleAvatar(
                       radius: 40,
-                      backgroundImage: AssetImage('assets/images/logo-transparent.png'),
+                      backgroundImage:
+                          AssetImage('assets/images/logo-transparent.png'),
                     ),
                   ),
                   const SizedBox(height: 16),
                   Center(
                     child: Text(
                       user.name,
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -127,7 +131,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     trailing: IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        _showEditBottomSheet(context, 'phone', user.phone, (value) {
+                        _showEditBottomSheet(context, 'phone', user.phone,
+                            (value) {
                           _updateUserField('phone', value);
                         });
                       },
@@ -139,7 +144,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     trailing: IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        _showEditBottomSheet(context, 'gender', user.gender, (value) {
+                        _showEditBottomSheet(context, 'gender', user.gender,
+                            (value) {
                           _updateUserField('gender', value);
                         });
                       },
@@ -163,7 +169,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     trailing: IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        _showEditBottomSheet(context, 'address', user.address, (value) {
+                        _showEditBottomSheet(context, 'address', user.address,
+                            (value) {
                           _updateUserField('address', value);
                         });
                       },
@@ -173,12 +180,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   FutureBuilder<int>(
                     future: _postCount,
                     builder: (context, snapshot) {
-                      if (!snapshot.hasData) return const Text("Loading posts...");
-                      return Text("Posts: ${snapshot.data}", style: const TextStyle(fontSize: 16));
+                      if (!snapshot.hasData)
+                        return const Text("Loading posts...");
+                      return Text("Posts: ${snapshot.data}",
+                          style: const TextStyle(fontSize: 16));
                     },
                   ),
                   const SizedBox(height: 16),
-                  const Text("My Posts", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const Text("My Posts",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 12),
                   FutureBuilder<List<PostModel>>(
                     future: _userPosts,
@@ -189,62 +200,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (snapshot.hasError) {
                         return Text("Error loading posts: ${snapshot.error}");
                       }
+
                       final posts = snapshot.data!;
                       if (posts.isEmpty) {
                         return const Text("No posts yet.");
                       }
-                     return ListView.builder(
-  shrinkWrap: true,
-  physics: const NeverScrollableScrollPhysics(),
-  itemCount: posts.length,
-  itemBuilder: (context, index) {
-    final post = posts[index];
-    final imageUrl = (post.imageUrl.isNotEmpty)
-        ? post.imageUrl
-        : 'https://ik.imagekit.io/demo/img/default-image.jpg';
 
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(post.text),
-            const SizedBox(height: 8),
-            if (post.imageUrl.isNotEmpty)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  imageUrl,
-                  height: 180,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Text("⚠️ Failed to load image"),
-                ),
-              ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const Icon(Icons.favorite, size: 16),
-                const SizedBox(width: 4),
-                Text("${post.likes.length} likes"),
-                const SizedBox(width: 16),
-                const Icon(Icons.comment, size: 16),
-                const SizedBox(width: 4),
-                Text("${post.commentsCount} comments"),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  },
-);
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: posts.length,
+                        itemBuilder: (context, index) {
+                          final post = posts[index];
+                          final imageUrl = (post.imageUrl.isNotEmpty)
+                              ? post.imageUrl
+                              : 'https://ik.imagekit.io/demo/img/default-image.jpg';
 
+                          return Card(
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(post.text),
+                                  const SizedBox(height: 8),
+                                  if (post.imageUrl.isNotEmpty)
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        imageUrl,
+                                        height: 180,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Text(
+                                                    "⚠️ Failed to load image"),
+                                      ),
+                                    ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.favorite, size: 16),
+                                      const SizedBox(width: 4),
+                                      Text("${post.likes.length} likes"),
+                                      const SizedBox(width: 16),
+                                      const Icon(Icons.comment, size: 16),
+                                      const SizedBox(width: 4),
+                                      Text("${post.commentsCount} comments"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
-                  )
+                  ),
                 ],
               ),
             ),
